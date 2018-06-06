@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 06/06/2018 11:26:36 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="aplicacion.datos.hibernate.mapeos.Usuarios" table="usuarios" catalog="cine" optimistic-lock="version">
+        <id name="usuCodigo" type="java.lang.Integer">
+            <column name="usu_codigo" />
+            <generator class="identity" />
+        </id>
+        <property name="usuNombreUsuario" type="string">
+            <column name="usu_nombre_usuario" length="10" not-null="true" />
+        </property>
+        <property name="usuPassword" type="string">
+            <column name="usu_password" not-null="true" unique="true" />
+        </property>
+        <property name="usuTipoUsuario" type="string">
+            <column name="usu_tipo_usuario" length="15" not-null="true" />
+        </property>
+        <property name="usuEstado" type="boolean">
+            <column name="usu_estado" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>
