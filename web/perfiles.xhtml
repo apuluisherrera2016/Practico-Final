@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <body>
+
+        <ui:composition template="./structure/masterTemplate.xhtml">
+
+            <ui:define name="content">
+                <p:panel>
+                    <h:form>
+                        <p:panelGrid columns="2">
+                            <p:outputLabel for="txtapellido" value="Apellido"></p:outputLabel>
+                            <p:inputText id="txtapellido" value="#{perfilFormBean.perfilBean.perfil.apellidos}"></p:inputText>
+
+                            <p:outputLabel for="txtnombres" value="Nombres"></p:outputLabel>
+                            <p:inputText id="txtnombres" value="#{perfilFormBean.perfilBean.perfil.nombres}"></p:inputText>
+                            
+                            <p:outputLabel for="cmbUsuario" value="Usuario"></p:outputLabel>
+                            <h:selectOneMenu id="cmbUsuario" value="#{perfilFormBean.perfilBean.perfil.usuario}" converter="omnifaces.SelectItemsConverter">
+                                <f:selectItems value="#{usuarioFormBean.listaUsuarios()}" var="u" itemLabel="#{u.usuario}" itemValue="#{u}"/>
+                            </h:selectOneMenu>
+                            
+                            <h:commandButton id="btnGuardar" action="#{perfilFormBean.guardarPerfil()}" value="Guardar"/>
+                        </p:panelGrid>
+                    </h:form>
+                </p:panel>
+                <p:panel>
+                    <h:form>
+                        <p:dataTable value="#{perfilFormBean.obtenerPerfiles()}" var="perfil">
+                            <p:column headerText="Apellido">
+                                <p:outputLabel value="#{perfil.apellidos}"></p:outputLabel>
+                            </p:column>
+                            <p:column headerText="Nombres">
+                                <p:outputLabel value="#{perfil.nombres}"></p:outputLabel>
+                            </p:column>
+                            <p:column headerText="Dni">
+                                <p:outputLabel value="#{perfil.dni}"></p:outputLabel>
+                            </p:column>                       
+                            <p:column headerText="Usuario">
+                                <p:outputLabel value="#{perfil.usuario.usuario}"></p:outputLabel>
+                            </p:column>                       
+                        </p:dataTable>
+                    </h:form>
+                </p:panel>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

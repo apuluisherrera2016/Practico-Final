@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">   
+    <h:head>
+        <title>Administrador</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./structure/adminTemplate.xhtml">
+
+            <ui:define name="content">
+                 <h1>BIENVENIDO #{loginFormBean.nombreUsuarioValidado}
+                <p:commandButton id="tbnSalir" value="Salir" action="#{loginFormBean.cerrarSesion()}"/>
+                </h1>
+                    
+                
+                
+                <h:form id="frmUsuarios"> 
+               
+                    
+                <p:panel id="pnlbody">
+                    <p:panelGrid id="pnlgPrincipal">
+                        <p:outputLabel value="Lista de usuarios"></p:outputLabel>
+                            <p:commandButton id="btnCargar" value="Cargar usuarios" 
+                                             actionListener="#{usuarioFormBean.listaUsuarios()}"
+                                             update="frmUsuarios"></p:commandButton>
+                            
+                            <p:dataTable id="dtLista" value="#{usuarioFormBean.lista}" var="usuario" >
+                                
+                    <p:column headerText="Codigo de Usuario"  >
+                        <p:outputLabel id="lblPatente" value="#{usuario.codigo}" />                 
+                       
+                    </p:column>
+                    <p:column headerText="Nombre de Usuario">
+                        <p:outputLabel value="#{usuario.nombreUsuario}"/>
+                     </p:column>
+                    <p:column headerText="Contraseña">
+                        <p:outputLabel value="#{usuario.password}"/>
+                    </p:column>
+                     <p:column headerText="Tipo de Usuario">
+                         <p:outputLabel value="#{usuario.tipoUsuario}"/>
+                    </p:column>
+                     <p:column headerText="Estado del Usuario">
+                         <p:outputLabel value="#{usuario.estado}"/>
+                    </p:column>
+                   
+                   
+                        <p:column   headerText="Actualizar usuario "  style="width:32px;text-align: center">
+                            <p:commandButton update="datosUsuario" actionListener="#{usuarioFormBean.seleccionarUsuario(usuario)}" 
+                                             oncomplete="PF('dlg2').show()" 
+                                             icon="ui-icon-pencil" title="Actualizar">
+ 
+                          </p:commandButton>
+                     </p:column>
+                   
+                   
+                </p:dataTable>
+                            
+                      
+                        
+                    </p:panelGrid>
+                         
+                    
+                   
+                </p:panel>
+                </h:form>
+                 <p:dialog id="datosUsuario" header="Mostrar Datos" widgetVar="dlg2" modal="true" height="300"   >
+                 <h:form>
+           
+                     <p:panelGrid id ="grdDatos" columns="2" >     
+                
+             
+                <p:outputLabel id="olbnombreUsuario" value="nombre de usuario"></p:outputLabel>
+                <p:outputLabel id="lblNombreUsuario" value="#{usuarioFormBean.usuarioSeleccionado.nombreUsuario}"/>
+                <p:outputLabel id="olbPassword" value="password "></p:outputLabel>
+                <p:inputText id="lblPassword" value="#{usuarioFormBean.usuarioSeleccionado.password}"/>
+                <p:outputLabel id="olbTipodeUsuario" value="Tipo de usuario"></p:outputLabel>
+                <p:inputText id="lblClr" value="#{usuarioFormBean.usuarioSeleccionado.tipoUsuario}"/>
+                <p:outputLabel id="olbEstado" value="Estado"></p:outputLabel>
+                <p:inputText id="lblEstado" value="#{usuarioFormBean.usuarioSeleccionado.estado}"></p:inputText>
+
+                <p:commandButton id="btnActualizar" value="Actualizar"
+                                 actionListener="#{usuarioFormBean.actualizar()}" update="frmUsuarios"
+                                  oncomplete="PF('dlg2').hide()"></p:commandButton>
+            </p:panelGrid>
+          </h:form>    
+        </p:dialog>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
