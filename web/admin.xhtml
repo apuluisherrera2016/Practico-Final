@@ -12,14 +12,16 @@
         <ui:composition template="./structure/adminTemplate.xhtml">
 
             <ui:define name="content">
-                 <h1>BIENVENIDO #{loginFormBean.nombreUsuarioValidado}
-                <p:commandButton id="tbnSalir" value="Salir" action="#{loginFormBean.cerrarSesion()}"/>
-                </h1>
+               
                     
                 
                 
-                <h:form id="frmUsuarios"> 
+                <h:form id="frmUsuarios" rendered="#{loginFormBean.verificarSesion()}"> 
                
+                <h1>BIENVENIDO #{loginFormBean.nombreUsuarioValidado}
+                <p:commandButton id="tbnSalir" value="Salir" action="#{loginFormBean.cerrarSesion()}"/>
+                </h1>
+                    
                     
                 <p:panel id="pnlbody">
                     <p:panelGrid id="pnlgPrincipal">
@@ -88,6 +90,14 @@
             </p:panelGrid>
           </h:form>    
         </p:dialog>
+                <p:panel rendered="#{loginFormBean.verificarSesion() eq false}">
+                    <h:form>
+                        <p:outputLabel value="Session no iniciada"></p:outputLabel>
+                        <p:commandButton value="Iniciar sesion" action="/login?faces-redirect=true"></p:commandButton>
+                    </h:form>
+                    
+                </p:panel>
+                
             </ui:define>
         </ui:composition>
     </h:body>
